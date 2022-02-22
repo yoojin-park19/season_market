@@ -19,7 +19,7 @@ const HomeHeader = () => {
         </form>
       </div>
       <div className="right-header">
-        <Link className="link-cart">
+        <Link to="#" className="link-cart">
           <img src="./assets/icon-shopping-cart.svg" alt="장바구니" />
           <p>장바구니</p>
         </Link>
