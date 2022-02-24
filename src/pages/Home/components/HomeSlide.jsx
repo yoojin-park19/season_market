@@ -1,26 +1,42 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 const HomeSlides = () => {
-  const [previous, setPre] = useState();
-  const moveLeft = (event) => {
-    event.target.style.transform = 'translateX( 100%)';
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const moveItemTarget = useRef(null);
+  const TOTAL_SLIDES = 4;
+
+  const nextSlide = () => {
+    if (currentSlide >= TOTAL_SLIDES) {
+      setCurrentSlide(0);
+    } else {
+      setCurrentSlide(currentSlide + 1);
+    }
   };
+
+  const prevSlide = () => {
+    if (currentSlide === 0) {
+      setCurrentSlide(TOTAL_SLIDES);
+    } else {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  useEffect(() => {
+    moveItemTarget.current.style.transition = 'all 0.5s ease-in-out';
+    moveItemTarget.current.style.transform = `translateX(-${currentSlide}00vw)`;
+  }, [currentSlide]);
   return (
     <HomeSlide>
-      <div className="cont-slide">
-        <div className="firstCard"></div>
-        <div className="secondCard"></div>
-        <div className="thirdCard">
-          <p>thirdCard</p>
-        </div>
-        <div className="forthCard">
-          <p>forthCard</p>
-        </div>
+      <div className="cont-slide ">
+        <ul ref={moveItemTarget} className="slideHidden">
+          {images.map((img, i) => (
+            <IMG src={img} key={i} />
+          ))}
+        </ul>
       </div>
-      <div className="btnMove">
-        <button className="btnLeft" onClick={moveLeft}></button>
-        <button className="btnRight"></button>
+      <div className="buttonCont">
+        <button onClick={prevSlide} className="preBtn"></button>
+        <button onClick={nextSlide} className="nextBtn"></button>
       </div>
       <div className="indicator">
         <button className="firstCase"></button>
@@ -31,6 +47,13 @@ const HomeSlides = () => {
     </HomeSlide>
   );
 };
+const IMG = styled.img`
+  width: 100vw;
+  height: 300px;
+  background-size: cover;
+  background-position: 0 -410px;
+  background-repeat: no-repeat;
+`;
 
 const HomeSlide = styled.section`
   position: relative;
@@ -39,41 +62,9 @@ const HomeSlide = styled.section`
   .cont-slide {
     width: 400vw;
     display: flex;
-    .firstCard {
-      width: 100vw;
-      height: 300px;
-      background: url('./assets/spring.jpg');
-      background-size: cover;
-      background-position: 0 -410px;
-      background-repeat: no-repeat;
-    }
-    .secondCard {
-      width: 100vw;
-      height: 300px;
-      background: url('./assets/summer.jpg');
-      background-size: cover;
-      background-position: 0 -410px;
-      background-repeat: no-repeat;
-    }
-    .thirdCard {
-      width: 100vw;
-      height: 300px;
-      background: url('./assets/fall.jpg');
-      background-size: cover;
-      background-position: 0 -500px;
-      background-repeat: no-repeat;
-    }
-    .forthCard {
-      width: 100vw;
-      height: 300px;
-      background: url('./assets/winter2.jpg');
-      background-size: cover;
-      background-position: 0 -600px;
-      background-repeat: no-repeat;
-    }
   }
-  .btnMove {
-    .btnRight {
+  .buttonCont {
+    .preBtn {
       position: absolute;
       top: 150px;
       right: 30px;
@@ -83,7 +74,7 @@ const HomeSlide = styled.section`
       width: 30px;
       height: 30px;
     }
-    .btnLeft {
+    .nextBtn {
       position: absolute;
       top: 150px;
       left: 30px;
