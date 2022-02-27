@@ -1,21 +1,25 @@
 import styled from 'styled-components';
 import React, { useRef, useState, useEffect } from 'react';
+import Images from '../../../constants/index';
 const HomeSlides = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const moveItemTarget = useRef(null);
-  const TOTAL_SLIDES = 4;
-
-  const nextSlide = () => {
+  const TOTAL_SLIDES = 3;
+  let images = [];
+  for (let i = 0; i < Images.length; i++) {
+    images.push(Images[i].url);
+  }
+  function nextSlide() {
     if (currentSlide >= TOTAL_SLIDES) {
-      setCurrentSlide(0);
+      setCurrentSlide(TOTAL_SLIDES);
     } else {
       setCurrentSlide(currentSlide + 1);
     }
-  };
+  }
 
   const prevSlide = () => {
     if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES);
+      setCurrentSlide(currentSlide);
     } else {
       setCurrentSlide(currentSlide - 1);
     }
@@ -29,8 +33,8 @@ const HomeSlides = () => {
     <HomeSlide>
       <div className="cont-slide ">
         <ul ref={moveItemTarget} className="slideHidden">
-          {images.map((img, i) => (
-            <IMG src={img} key={i} />
+          {images.map((url, index) => (
+            <IMG src={url} key={index} />
           ))}
         </ul>
       </div>
@@ -50,9 +54,6 @@ const HomeSlides = () => {
 const IMG = styled.img`
   width: 100vw;
   height: 300px;
-  background-size: cover;
-  background-position: 0 -410px;
-  background-repeat: no-repeat;
 `;
 
 const HomeSlide = styled.section`
@@ -64,7 +65,7 @@ const HomeSlide = styled.section`
     display: flex;
   }
   .buttonCont {
-    .preBtn {
+    .nextBtn {
       position: absolute;
       top: 150px;
       right: 30px;
@@ -74,7 +75,7 @@ const HomeSlide = styled.section`
       width: 30px;
       height: 30px;
     }
-    .nextBtn {
+    .preBtn {
       position: absolute;
       top: 150px;
       left: 30px;
