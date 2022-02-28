@@ -1,18 +1,18 @@
 export const Images = [
   {
-    index: 1,
+    index: 0,
     url: '/assets/spring.jpg',
   },
   {
-    index: 2,
+    index: 1,
     url: '/assets/summer.jpg',
   },
   {
-    index: 1,
+    index: 2,
     url: '/assets/fall.jpg',
   },
   {
-    index: 1,
+    index: 3,
     url: '/assets/winter.jpg',
   },
 ];

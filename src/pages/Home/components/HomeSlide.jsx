@@ -4,31 +4,40 @@ import Images from '../../../constants/index';
 const HomeSlides = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const moveItemTarget = useRef(null);
-  const TOTAL_SLIDES = 3;
+  const color = useRef(null);
+
   let images = [];
   for (let i = 0; i < Images.length; i++) {
     images.push(Images[i].url);
   }
+
   function nextSlide() {
+    const TOTAL_SLIDES = 3;
     if (currentSlide >= TOTAL_SLIDES) {
       setCurrentSlide(TOTAL_SLIDES);
     } else {
       setCurrentSlide(currentSlide + 1);
+      console.log(currentSlide);
+      console.log(color.current);
     }
   }
 
   const prevSlide = () => {
     if (currentSlide === 0) {
-      setCurrentSlide(currentSlide);
+      setCurrentSlide(0);
     } else {
       setCurrentSlide(currentSlide - 1);
+      console.log(color);
     }
   };
 
   useEffect(() => {
     moveItemTarget.current.style.transition = 'all 0.5s ease-in-out';
     moveItemTarget.current.style.transform = `translateX(-${currentSlide}00vw)`;
+    color.current.classList.toggle('on');
+    console.log(color.current);
   }, [currentSlide]);
+
   return (
     <HomeSlide>
       <div className="cont-slide ">
@@ -42,11 +51,10 @@ const HomeSlides = () => {
         <button onClick={prevSlide} className="preBtn"></button>
         <button onClick={nextSlide} className="nextBtn"></button>
       </div>
-      <div className="indicator">
-        <button className="firstCase"></button>
-        <button className="secondCase"></button>
-        <button className="thirdCase"></button>
-        <button className="forthCase"></button>
+      <div className="indicatorCont">
+        {images.map((url, index) => (
+          <div ref={color} className={`indicator ${index}`} key={index} />
+        ))}
       </div>
     </HomeSlide>
   );
@@ -86,19 +94,20 @@ const HomeSlide = styled.section`
       height: 30px;
     }
   }
-  .indicator {
-    position: absolute;
-    bottom: 10px;
-    left: 650px;
-    button {
-      width: 12px;
-      height: 12px;
+  .indicatorCont {
+    transform: translateY(-40px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    .indicator {
+      width: 10px;
+      height: 10px;
       border-radius: 100%;
-      background-color: #fff;
       border: none;
-      margin-right: 8px;
+      background-color: #fff;
       &.on {
-        background-color: #000;
+        background-color: #000000;
       }
     }
   }
