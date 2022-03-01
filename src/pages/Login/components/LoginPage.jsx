@@ -45,7 +45,7 @@ const LoginPage = styled.section`
       button {
         width: 320px;
         height: 60px;
-        background-color: #fb838a;
+        background-color: rgb(243, 174, 177);
         color: #fff;
         border: none;
         border-radius: 5px;
@@ -54,6 +54,9 @@ const LoginPage = styled.section`
         font-size: 18px;
         line-height: 22px;
         margin-top: 16px;
+        &.active {
+          background-color: #fb838a;
+        }
       }
     }
   }

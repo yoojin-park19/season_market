@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useRef, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Images from '../../../constants/index';
 import Items from '../../../constants/database';
 const HomeSlides = () => {
@@ -75,12 +76,12 @@ const HomeSlides = () => {
       <HomeItems>
         <ul className="listItem">
           {Items[item].season.map((season, index) => (
-            <li className="contItem">
+            <Link to={`/product/${season.id}`} className="contItem">
               <Img src={season.url} key={index} />
               <p className="company">{season.company}</p>
               <p className="title">{season.title}</p>
               <p className="price">{season.price}원</p>
-            </li>
+            </Link>
           ))}
         </ul>
       </HomeItems>

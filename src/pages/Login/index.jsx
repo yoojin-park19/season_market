@@ -56,7 +56,8 @@ const Login = styled.section`
     display: flex;
     button {
       border: none;
-      background-color: #fff;
+      background-color: #fb838a;
+      color: #fff;
       width: 180px;
       padding: 17px 15px;
     }
@@ -67,7 +68,8 @@ const Login = styled.section`
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
       &.click {
-        background-color: #fb838a;
+        background-color: #fff;
+        color: #000;
       }
     }
     .btnJoin {
@@ -77,7 +79,8 @@ const Login = styled.section`
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       &.click {
-        background-color: #fb838a;
+        background-color: #fff;
+        color: #000;
       }
     }
   }

@@ -5,7 +5,7 @@ const HomeHeader = () => {
   return (
     <HomeHead>
       <div className="left-header">
-        <img src="./assets/logo.png" alt="Season market" />
+        <img src="/assets/logo.png" alt="Season market" />
         <form action="" className="inp-header">
           <label htmlFor="inp-header"></label>
           <input
@@ -14,17 +14,17 @@ const HomeHeader = () => {
             placeholder="상품을 검색해보세요."
           />
           <button className="searchBtn">
-            <img src="./assets/search.svg" alt="" />
+            <img src="/assets/search.svg" alt="" />
           </button>
         </form>
       </div>
       <div className="right-header">
         <Link to="#" className="link-cart">
-          <img src="./assets/icon-shopping-cart.svg" alt="장바구니" />
+          <img src="/assets/icon-shopping-cart.svg" alt="장바구니" />
           <p>장바구니</p>
         </Link>
         <Link to="/login" className="link-myPage">
-          <img src="./assets/icon-user.svg" alt="마이페이지" />
+          <img src="/assets/icon-user.svg" alt="마이페이지" />
           <p>로그인</p>
         </Link>
       </div>
