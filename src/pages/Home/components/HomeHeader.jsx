@@ -23,9 +23,9 @@ const HomeHeader = () => {
           <img src="./assets/icon-shopping-cart.svg" alt="장바구니" />
           <p>장바구니</p>
         </Link>
-        <Link to="#" className="link-myPage">
+        <Link to="/login" className="link-myPage">
           <img src="./assets/icon-user.svg" alt="마이페이지" />
-          <p>마이페이지</p>
+          <p>로그인</p>
         </Link>
       </div>
     </HomeHead>
@@ -91,7 +91,6 @@ const HomeHead = styled.section`
       width: 56px;
       height: 50px;
       img {
-        margin-left: 9px;
         width: 32px;
         height: 32px;
       }

@@ -155,7 +155,7 @@ width: 100vw;
 .listItem { 
   display: flex;
   flex-wrap:wrap;
-  margin: 0 50px;
+  margin: 0 100px;
   justify-content: center;
   gap: 30px;
   .contItem
