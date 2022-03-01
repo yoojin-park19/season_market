@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import React, { useRef, useState, useEffect } from 'react';
 import Images from '../../../constants/index';
+import Items from '../../../constants/database';
 const HomeSlides = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [item, setItem] = useState(0);
   const moveItemTarget = useRef(null);
 
   let images = [];
@@ -14,16 +16,20 @@ const HomeSlides = () => {
     const TOTAL_SLIDES = 3;
     if (currentSlide >= TOTAL_SLIDES) {
       setCurrentSlide(TOTAL_SLIDES);
+      setItem(TOTAL_SLIDES);
     } else {
       setCurrentSlide(currentSlide + 1);
+      setItem(item + 1);
     }
   }
 
   const prevSlide = () => {
     if (currentSlide <= 0) {
       setCurrentSlide(0);
+      setItem(0);
     } else {
       setCurrentSlide(currentSlide - 1);
+      setItem(item - 1);
     }
   };
 
@@ -49,20 +55,34 @@ const HomeSlides = () => {
   }, [currentSlide]);
 
   return (
-    <HomeSlide>
-      <div className="cont-slide ">
-        <ul ref={moveItemTarget} className="slideHidden">
-          {images.map((url, index) => (
-            <IMG src={url} key={index} />
+    <>
+      <HomeSlide>
+        <div className="cont-slide ">
+          <ul ref={moveItemTarget} className="slideHidden">
+            {images.map((url, index) => (
+              <IMG src={url} key={index} />
+            ))}
+          </ul>
+        </div>
+        <div className="buttonCont">
+          <button onClick={prevSlide} className="preBtn"></button>
+          <button onClick={nextSlide} className="nextBtn"></button>
+        </div>
+        <div className="indicatorCont">{indicatorRender()}</div>
+      </HomeSlide>
+      <HomeItem>
+        <ul>
+          {Items[item].season.map((season, index) => (
+            <>
+              <Img src={season.url} key={index} />
+              <p className="company">{season.company}</p>
+              <p className="title">{season.title}</p>
+              <p className="price">{season.price}원</p>
+            </>
           ))}
         </ul>
-      </div>
-      <div className="buttonCont">
-        <button onClick={prevSlide} className="preBtn"></button>
-        <button onClick={nextSlide} className="nextBtn"></button>
-      </div>
-      <div className="indicatorCont">{indicatorRender()}</div>
-    </HomeSlide>
+      </HomeItem>
+    </>
   );
 };
 
@@ -120,4 +140,32 @@ const HomeSlide = styled.section`
   }
 `;
 
+const Img = styled.img`
+  width: 380px;
+  height: 380px;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+`;
+
+const HomeItem = styled.section`
+  width: 380px;
+  height: 490px;
+  margin-top: 80px;
+
+  .company {
+    font-size: 16px;
+    line-height: 22px;
+    color: #767676;
+  }
+  .title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .price {
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: 700;
+  }
+`;
 export default HomeSlides;
