@@ -60,7 +60,9 @@ const HomeSlides = () => {
         <div className="cont-slide ">
           <ul ref={moveItemTarget} className="slideHidden">
             {images.map((url, index) => (
-              <IMG src={url} key={index} />
+              <>
+                <IMG src={url} key={index} />
+              </>
             ))}
           </ul>
         </div>
@@ -70,31 +72,31 @@ const HomeSlides = () => {
         </div>
         <div className="indicatorCont">{indicatorRender()}</div>
       </HomeSlide>
-      <HomeItem>
-        <ul>
+      <HomeItems>
+        <ul className="listItem">
           {Items[item].season.map((season, index) => (
-            <>
+            <li className="contItem">
               <Img src={season.url} key={index} />
               <p className="company">{season.company}</p>
               <p className="title">{season.title}</p>
               <p className="price">{season.price}원</p>
-            </>
+            </li>
           ))}
         </ul>
-      </HomeItem>
+      </HomeItems>
     </>
   );
 };
 
 const IMG = styled.img`
   width: 100vw;
-  height: 300px;
+  height: 400px;
 `;
 
 const HomeSlide = styled.section`
   position: relative;
   width: 100vw;
-  /* overflow: hidden; */
+  overflow: hidden;
   .cont-slide {
     width: 400vw;
     display: flex;
@@ -102,7 +104,7 @@ const HomeSlide = styled.section`
   .buttonCont {
     .nextBtn {
       position: absolute;
-      top: 150px;
+      top: 180px;
       right: 30px;
       background: url('./assets/icon-right-arrow.svg') no-repeat;
       background-color: transparent;
@@ -112,7 +114,7 @@ const HomeSlide = styled.section`
     }
     .preBtn {
       position: absolute;
-      top: 150px;
+      top: 180px;
       left: 30px;
       background: url('./assets/icon-left-arrow.svg') no-repeat;
       background-color: transparent;
@@ -141,31 +143,40 @@ const HomeSlide = styled.section`
 `;
 
 const Img = styled.img`
-  width: 380px;
-  height: 380px;
+  width: 350px;
+  height: 350px;
   border-radius: 10px;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
 `;
 
-const HomeItem = styled.section`
+const HomeItems = styled.section`
+width: 100vw;
+.listItem { 
+  display: flex;
+  flex-wrap:wrap;
+  margin: 0 50px;
+  justify-content: center;
+  gap: 30px;
+  .contItem
   width: 380px;
   height: 490px;
   margin-top: 80px;
-
-  .company {
-    font-size: 16px;
-    line-height: 22px;
-    color: #767676;
+    .company {
+      font-size: 16px;
+      line-height: 22px;
+      color: #767676;
+    }
+    .title {
+      font-size: 18px;
+      line-height: 22px;
+    }
+    .price {
+      font-size: 24px;
+      line-height: 30px;
+      font-weight: 700;
+    }
   }
-  .title {
-    font-size: 18px;
-    line-height: 22px;
-  }
-  .price {
-    font-size: 24px;
-    line-height: 30px;
-    font-weight: 700;
-  }
+}
 `;
 export default HomeSlides;
