@@ -3,127 +3,122 @@ import Items from '../../../constants/database';
 import { useParams } from 'react-router';
 
 const ProductItem = () => {
-  const paramsId = useParams().id;
+  const paramsId = parseInt(useParams().id);
+  console.log(typeof paramsId);
+
   return (
-    <>
-      {Items.map((item) => (
-        <Item key={item.index}>
-          {item.season.map((one) => (
-            <Detail key={one.id}>
-              {paramsId === one.id ? (
-                <div>
+    <ProductItems>
+      {Items.map((item, index) => (
+        <Item key={index}>
+          {item.season.map((season, id) => (
+            <>
+              {paramsId === season.id ? (
+                <div className="contItem">
                   <img
                     className="productItemImg"
-                    src={one.url}
+                    src={season.url}
                     alt="상품사진"
                   />
                   <div className="productCont">
                     <div className="productInfo">
-                      <h4>{one.company}</h4>
-                      <h2>{one.title}</h2>
+                      <h4>{season.company}</h4>
+                      <h2>{season.title}</h2>
                       <h3 className="price">
-                        {one.price}
+                        {season.price}
                         <span>원</span>
                       </h3>
                     </div>
                   </div>
                 </div>
               ) : null}
-              <img className="productItemImg" src={one.url} alt="상품사진" />
-              <div className="productCont">
-                <div className="productInfo">
-                  <h4>{one.company}</h4>
-                  <h2>{one.title}</h2>
-                  <h3 className="price">
-                    {one.price}
-                    <span>원</span>
-                  </h3>
-                </div>
-              </div>
-            </Detail>
+            </>
           ))}
         </Item>
       ))}
-      ;
-      <div className="productOpt">
-        <p>택배배송/무료배송</p>
-        <hr />
-        <div className="productAmountCont">
-          <button className="productAmountBtn left"></button>
-          <span className="productAmountBtn text">1</span>
-          <button className="productAmountBtn right"></button>
+      <ContCart>
+        <div className="productOpt">
+          <p>택배배송/무료배송</p>
+          <hr />
+          <div className="productAmountCont">
+            <button className="productAmountBtn left"></button>
+            <span className="productAmountBtn text">1</span>
+            <button className="productAmountBtn right"></button>
+          </div>
+          <hr />
+          <div className="productPrice">
+            <p>총 상품 금액</p>
+            <p>
+              <span>
+                총 수량 <span className="green"> 1</span>
+                <span className="after">개</span>
+              </span>
+              <span className="green point">17,500</span>
+              <span className="green">원</span>
+            </p>
+          </div>
+          <div className="productBtnCont">
+            <button className="purchaseBtn">바로 구매</button>
+            <button className="basketBtn">장바구니</button>
+          </div>
         </div>
-        <hr />
-        <div className="productPrice">
-          <p>총 상품 금액</p>
-          <p>
-            <span>
-              총 수량 <span className="green"> 1</span>
-              <span className="after">개</span>
-            </span>
-            <span className="green point">17,500</span>
-            <span className="green">원</span>
-          </p>
-        </div>
-        <div className="productBtnCont">
-          <button className="purchaseBtn">바로 구매</button>
-          <button className="basketBtn">장바구니</button>
-        </div>
-      </div>
-    </>
+      </ContCart>
+    </ProductItems>
   );
 };
-const Detail = styled.section``;
-const Item = styled.section`
-  width: 80%;
+const ProductItems = styled.section`
+  width: 70%;
   margin: 120px auto;
   display: flex;
-  gap: 50px;
-  .productItemImg {
-    width: 600px;
-    height: 600px;
-  }
-  .productCont {
-    height: 600px;
+  gap: 10px;
+  position: relative;
+`;
+const Item = styled.section`
+  height: 600px;
+  .contItem {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .productInfo {
-      h4 {
-        display: block;
-        margin-bottom: 16px;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 23px;
+    .productItemImg {
+      width: 500px;
+      height: 500px;
+    }
+    .productCont {
+      height: 600px;
+      margin-left: 20px;
+      .productInfo {
         text-align: left;
-        color: #767676;
-      }
-      h2 {
-        display: block;
-        margin-bottom: 20px;
-        font-family: Spoqa Han Sans Neo;
-        font-size: 36px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 45px;
-        letter-spacing: 0em;
-        text-align: left;
-      }
-      .price {
-        font-size: 36px;
-        font-weight: 700;
-        line-height: 45px;
-        text-align: left;
-        span {
-          font-size: 18px;
+        h4 {
+          display: block;
+          margin-bottom: 16px;
+          font-size: 20px;
+          color: #767676;
+          margin-top: 10px;
+        }
+        h2 {
+          display: block;
+          margin-bottom: 20px;
+          font-size: 30px;
           font-weight: 400;
-          line-height: 23px;
-          text-align: left;
+          letter-spacing: 0em;
+        }
+        .price {
+          font-size: 25px;
+          font-weight: 700;
+          span {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 23px;
+          }
         }
       }
     }
+  }
+`;
+
+const ContCart = styled.section`
+position:absolute;
+top:190px;
+right:10px;
     .productOpt {
+      width: 550px;
       p {
         font-size: 16px;
         font-weight: 400;
@@ -133,7 +128,7 @@ const Item = styled.section`
         color: #767676;
       }
       .productAmountCont {
-        width: 150px;
+        width: 100px;
         height: 50px;
         display: flex;
         margin: 30px 0;
@@ -216,7 +211,6 @@ const Item = styled.section`
           color: #fff;
         }
       }
-    }
-  }
 `;
+
 export default ProductItem;
