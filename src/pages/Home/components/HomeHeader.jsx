@@ -36,14 +36,14 @@ const HomeHead = styled.section`
   height: 90px;
   margin-top: 10px;
   display: flex;
-  margin: 0 150px;
+  margin: 20px 20px;
   justify-content: space-between;
   align-items: center;
   .left-header {
     display: flex;
     img {
-      height: 80px;
-      width: 230px;
+      height: 62px;
+      width: 200px;
       margin-right: 30px;
     }
     .inp-header {
@@ -52,7 +52,7 @@ const HomeHead = styled.section`
       height: 46px;
     }
     input {
-      margin-top: 20px;
+      margin-top: 11px;
       width: 400px;
       height: 46px;
       border-radius: 50px;
@@ -61,8 +61,8 @@ const HomeHead = styled.section`
     }
     .searchBtn {
       position: absolute;
-      top: 27px;
-      right: 10px;
+      top: 20px;
+      right: -18px;
       background-color: transparent;
       border: none;
       img {

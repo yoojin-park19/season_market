@@ -1,11 +1,11 @@
 export const Images = [
   {
     index: 0,
-    url: '/assets/spring.jpg',
+    url: '/assets/spring5.jpeg',
   },
   {
     index: 1,
-    url: '/assets/summer.jpg',
+    url: '/assets/summer.jpeg',
   },
   {
     index: 2,
