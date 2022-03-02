@@ -19,7 +19,7 @@ const HomeHeader = () => {
         </form>
       </div>
       <div className="right-header">
-        <Link to="#" className="link-cart">
+        <Link to="/cart" className="link-cart">
           <img src="/assets/icon-shopping-cart.svg" alt="장바구니" />
           <p>장바구니</p>
         </Link>
@@ -36,9 +36,11 @@ const HomeHead = styled.section`
   height: 90px;
   margin-top: 10px;
   display: flex;
-  margin: 20px 20px;
+  margin: 20px 0px;
+  padding: 0px 20px;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid #fd8789;
   .left-header {
     display: flex;
     img {

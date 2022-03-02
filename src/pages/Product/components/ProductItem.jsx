@@ -69,7 +69,7 @@ const ProductItems = styled.section`
   width: 70%;
   margin: 120px auto;
   display: flex;
-  gap: 10px;
+  gap: 20px;
   position: relative;
 `;
 const Item = styled.section`
@@ -82,7 +82,7 @@ const Item = styled.section`
     }
     .productCont {
       height: 600px;
-      margin-left: 20px;
+      margin-left: 30px;
       .productInfo {
         text-align: left;
         h4 {
