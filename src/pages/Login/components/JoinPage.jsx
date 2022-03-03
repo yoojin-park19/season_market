@@ -41,6 +41,7 @@ const JoinPages = () => {
 };
 
 const JoinPage = styled.section`
+  font-family: 'GmarketSansMedium';
   .wrapForm {
     border: 2px solid #fb838a;
     border-top: none;
@@ -69,6 +70,7 @@ const JoinPage = styled.section`
         border-bottom: 1px solid #fb838a;
       }
       button {
+        font-family: 'GmarketSansMedium';
         width: 320px;
         height: 60px;
         background-color: rgb(243, 174, 177);

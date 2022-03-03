@@ -33,6 +33,7 @@ const HomeHeader = () => {
 };
 
 const HomeHead = styled.section`
+  font-family: 'GmarketSansMedium';
   height: 90px;
   margin-top: 10px;
   display: flex;

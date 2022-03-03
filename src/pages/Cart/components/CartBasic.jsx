@@ -10,6 +10,7 @@ const CartBasic = () => {
 };
 
 const CartMain = styled.section`
+  font-family: 'GmarketSansMedium';
   display: flex;
   flex-direction: column;
   justify-content: center;

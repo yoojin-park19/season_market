@@ -28,6 +28,7 @@ const CartItems = () => {
 };
 
 const CartItem = styled.section`
+  font-family: 'GmarketSansMedium';
   display: flex;
   flex-direction: column;
   justify-content: center;

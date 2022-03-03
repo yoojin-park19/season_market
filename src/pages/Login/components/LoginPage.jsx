@@ -16,6 +16,7 @@ const LoginPages = () => {
 };
 
 const LoginPage = styled.section`
+  font-family: 'GmarketSansMedium';
   .wrapForm {
     border: 2px solid #fb838a;
     border-top: none;

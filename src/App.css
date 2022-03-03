@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('/public/stlyes/font/GmarketSansTTF/GmarketSansTTFMedium.ttf')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

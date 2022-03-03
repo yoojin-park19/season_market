@@ -95,6 +95,7 @@ const IMG = styled.img`
 `;
 
 const HomeSlide = styled.section`
+  font-family: 'GmarketSansMedium';
   position: relative;
   width: 100vw;
   overflow: hidden;
@@ -152,6 +153,7 @@ const Img = styled.img`
 `;
 
 const HomeItems = styled.section`
+font-family: 'GmarketSansMedium';
 width: 100vw;
 .listItem { 
   display: flex;

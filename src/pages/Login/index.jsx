@@ -42,6 +42,7 @@ const LoginIndexPage = () => {
 export default LoginIndexPage;
 
 const Login = styled.section`
+  font-family: 'GmarketSansMedium';
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,6 +56,7 @@ const Login = styled.section`
     width: 360px;
     display: flex;
     button {
+      font-family: 'GmarketSansMedium';
       border: none;
       background-color: #fb838a;
       color: #fff;

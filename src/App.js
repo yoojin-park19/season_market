@@ -1,4 +1,5 @@
 import './reset.css';
+import './App.css';
 import { Route, BrowserRouter } from 'react-router-dom';
 import HomeIndexPage from './pages/Home';
 import LoginIndexPage from './pages/Login';
