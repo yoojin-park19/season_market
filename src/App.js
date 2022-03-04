@@ -5,6 +5,7 @@ import HomeIndexPage from './pages/Home';
 import LoginIndexPage from './pages/Login';
 import ProductIndexPage from './pages/Product';
 import CartIndexPage from './pages/Cart';
+import PaymentIndexPage from './pages/Payment';
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,7 @@ function App() {
       <Route path="/login" exact component={LoginIndexPage} />
       <Route path="/product/:id" exact component={ProductIndexPage} />
       <Route path="/cart" exact component={CartIndexPage} />
+      <Route path="/payment" exact component={PaymentIndexPage} />
     </BrowserRouter>
   );
 }
