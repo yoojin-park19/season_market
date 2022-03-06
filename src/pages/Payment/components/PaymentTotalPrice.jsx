@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 const PaymentTotalPrice = () => {
   return (
@@ -12,11 +11,14 @@ const PaymentTotalPrice = () => {
 };
 
 const PaymentTotalPrices = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 18px;
   font-weight: 500;
   line-height: 23px;
   .totalPrice {
-    width: 1280px;
+    width: 800px;
     display: block;
     margin: 30px auto 0;
     text-align: end;

@@ -6,7 +6,7 @@ const PaymentHeader = () => {
       <h1>주문/결제하기</h1>
       <div className="barMenu">
         <img src="./assets/check-fill-box.svg" alt="체크" />
-        <p>상품정보</p>
+        <p className="desDetail"> 상품정보</p>
         <p>수량</p>
         <p>상품금액</p>
       </div>
@@ -34,6 +34,9 @@ const PaymentHead = styled.section`
     padding: 15px 50px;
     color: #fff;
     font-weight: 700;
+    .desDetail {
+      margin-right: 50px;
+    }
   }
 `;
 export default PaymentHeader;
