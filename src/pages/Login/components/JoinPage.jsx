@@ -1,10 +1,52 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-const JoinPages = () => {
-  let [activeBtn, setActiveBtn] = useState(false);
-  const handleToggle = (event) => {
-    event.currentTarget.clssList.toggle('active');
-    setActiveBtn((activeBtn = !activeBtn));
+const JoinPages = ({ setMode, handleUserdata }) => {
+  const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [pw, setPw] = useState('');
+
+  const checkEmail =
+    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+  const handleIdInput = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePwInput = (event) => {
+    setPw(event.target.value);
+  };
+
+  const checkJoin = () => {
+    if (pw.length < 6) {
+      setError('pw');
+      return;
+    } else submitJoin();
+  };
+  const submitJoin = async () => {
+    try {
+      const res = await fetch(`localhost:3000/user/emailvalid`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: {
+            email: email,
+          },
+        }),
+      });
+      const json = await res.json();
+      if (json.message === '이미 가입된 이메일 주소 입니다.') {
+        setError('email');
+      } else {
+        handleUserdata('email', email);
+        handleUserdata('password', pw);
+        setMode(false);
+      }
+    } catch (err) {
+      setError('email');
+      console.log(err);
+    }
   };
 
   return (
@@ -12,25 +54,36 @@ const JoinPages = () => {
       <div className="wrapForm">
         <div className="inputCont">
           <form>
-            <input className="inputId" type="text" placeholder="아이디" />
-            <input className="inputPw" type="password" placeholder="비밀번호" />
             <input
-              className="reInputPw"
-              type="password"
-              placeholder="비밀번호 재확인"
+              required
+              className="inputId"
+              type="text"
+              placeholder="아이디(*이메일 주소)"
+              onChange={handleIdInput}
             />
+            <Error display={error}>*사용중인 아이디 입니다.</Error>
+            <input
+              required
+              className="inputPw"
+              type="password"
+              placeholder="비밀번호"
+              onChange={handlePwInput}
+              autoComplete="off"
+            />
+            <Errorpw display={error}>
+              *비밀번호는 6자 이상이어야 합니다.
+            </Errorpw>
             <input className="inputname" type="text" placeholder="이름" />
             <input
               className="inputNumber"
               type="number"
               placeholder="휴대폰 번호"
             />
-            <input
-              className="inputMail"
-              type="text"
-              placeholder="이메일 주소"
-            />
-            <button action="/Home" onClick={handleToggle}>
+            <button
+              type="button"
+              disabled={!(checkEmail.test(email) && pw.length > 2)}
+              onClick={checkJoin}
+            >
               가입하기
             </button>
           </form>
@@ -88,5 +141,21 @@ const JoinPage = styled.section`
       }
     }
   }
+`;
+
+const Error = styled.strong`
+  margin-top: 6px;
+  display: ${(props) => (props.display === 'email' ? 'block' : 'none')};
+  color: #eb5757;
+  font-size: 12px;
+  line-height: 14px;
+`;
+
+const Errorpw = styled.strong`
+  margin-top: 6px;
+  display: ${(props) => (props.display === 'pw' ? 'block' : 'none')};
+  color: #eb5757;
+  font-size: 12px;
+  line-height: 14px;
 `;
 export default JoinPages;
