@@ -1,13 +1,70 @@
 import styled from 'styled-components';
+import { URL } from '../../../constants';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 const LoginPages = () => {
+  const [error, setError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [pw, setPw] = useState('');
+  const history = useHistory();
+
+  const handleIdInput = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePwInput = (event) => {
+    setPw(event.target.value);
+  };
+
+  const submitLogin = async () => {
+    try {
+      const res = await fetch(`${URL}/accounts/login/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: email,
+          password: pw,
+          login_type: 'BUYER',
+        }),
+      });
+      const json = await res.json();
+      console.log(json);
+      if (json.user.token) {
+        localStorage.setItem('Token', json.user.token);
+        localStorage.setItem('accountname', json.user.accountname);
+        history.push('/home');
+      }
+    } catch (err) {
+      setError(true);
+      console.log(err);
+    }
+  };
   return (
     <LoginPage>
       <div className="wrapForm">
         <div className="inputCont">
-          <form>
-            <input className="inputId" type="text" placeholder="아이디" />
-            <input className="inputPw" type="password" placeholder="비밀번호" />
-            <button action="/Home">로그인</button>
+          <form method="POST">
+            <input
+              onChange={handleIdInput}
+              className="inputId"
+              type="text"
+              placeholder="아이디"
+            />
+            <input
+              onChange={handlePwInput}
+              className="inputPw"
+              type="password"
+              placeholder="비밀번호"
+            />
+            <button
+              type="button"
+              // action="/Home"
+              onClick={submitLogin}
+            >
+              로그인
+            </button>
           </form>
         </div>
       </div>
