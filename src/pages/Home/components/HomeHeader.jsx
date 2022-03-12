@@ -23,7 +23,7 @@ const HomeHeader = () => {
           <img src="/assets/icon-shopping-cart.svg" alt="장바구니" />
           <p>장바구니</p>
         </Link>
-        <Link to="/login" className="link-myPage">
+        <Link to="/account" className="link-myPage">
           <img src="/assets/icon-user.svg" alt="마이페이지" />
           <p>로그인</p>
         </Link>
