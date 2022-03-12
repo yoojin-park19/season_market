@@ -19,4 +19,4 @@ export const Images = [
 
 export default Images;
 
-export const URL = 'http://13.209.150.154:8000/';
+export const URL = 'http://13.209.150.154:8000';

@@ -1,19 +1,81 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { URL } from '../../../constants';
-const JoinPages = ({ setMode, handleUserdata }) => {
+import { useForm } from 'react-hook-form';
+const JoinPages = () => {
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const [error, setError] = useState('');
+  // const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+  const [pw2, setPw2] = useState('');
+  const [phone_number, setPhone_number] = useState('');
+  const [name, setName] = useState('');
+
+  // const handleIdInput = (event) => {
+  //   setId(event.target.value);
+  // };
+  const handlePwInput = (event) => {
+    setPw(event.target.value);
+  };
+
+  const handlePwInput2 = (event) => {
+    setPw2(event.target.value);
+  };
+  const handlePhone_number = (event) => {
+    setPhone_number(event.target.value);
+  };
+  const handleName = (event) => {
+    setName(event.target.value);
+  };
+
+  const checkJoin = () => {
+    if (pw.length < 6) {
+      setError('pw');
+      return;
+    } else submitJoin();
+  };
+
+  const submitJoin = async () => {
+    try {
+      const res = await fetch(`${URL}/accounts/signup/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: watch('id'),
+          password: pw,
+          password2: pw2,
+          phone_number: phone_number,
+          name: name,
+          user_type: 'BUYER',
+        }),
+      });
+      const json = await res.json();
+      console.log(json);
+    } catch (err) {
+      setError('id');
+      console.log(err);
+    }
+  };
+
   return (
     <JoinPage>
       <img className="logo" src="../../assets/logo.png" alt="season-market" />
       <div className="wrapForm">
         <div className="inputCont">
           <p>회원가입</p>
-          <form>
+          <form method="POST">
             <input
-              required
-              className="inputId"
-              type="text"
-              placeholder="아이디(이메일 주소)"
+              id="id"
+              type="email"
+              {...register('id', { required: true })}
+              placeholder="이메일 주소를 입력해 주세요."
+              // onChange={handleIdInput}
             />
             <Error>*사용중인 아이디 입니다.</Error>
             <input
@@ -21,12 +83,35 @@ const JoinPages = ({ setMode, handleUserdata }) => {
               className="inputPw"
               type="password"
               placeholder="비밀번호"
+              onChange={handlePwInput}
               autoComplete="off"
             />
-            <Errorpw>*비밀번호는 6자 이상이어야 합니다.</Errorpw>
-            <input className="inputname" type="text" placeholder="이름" />
-
-            <button type="button">가입하기</button>
+            <input
+              required
+              className="inputPw"
+              type="password"
+              placeholder="비밀번호"
+              onChange={handlePwInput2}
+              autoComplete="off"
+            />
+            <Errorpw display={error}>
+              *비밀번호는 6자 이상이어야 합니다.
+            </Errorpw>
+            <input
+              onChange={handlePhone_number}
+              className="inputnumber"
+              type="text"
+              placeholder="전화번호"
+            />
+            <input
+              onChange={handleName}
+              className="inputname"
+              type="text"
+              placeholder="이름"
+            />
+            <button type="button" onClick={checkJoin}>
+              가입하기
+            </button>
           </form>
         </div>
       </div>
