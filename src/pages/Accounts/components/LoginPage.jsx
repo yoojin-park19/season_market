@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 const LoginPages = () => {
   const [error, setError] = useState(false);
-  const [email, setEmail] = useState('');
+  const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const history = useHistory();
 
   const handleIdInput = (event) => {
-    setEmail(event.target.value);
+    setId(event.target.value);
   };
 
   const handlePwInput = (event) => {
@@ -24,17 +24,16 @@ const LoginPages = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: email,
+          username: id,
           password: pw,
           login_type: 'BUYER',
         }),
       });
       const json = await res.json();
-      console.log(json);
-      if (json.user.token) {
-        localStorage.setItem('Token', json.user.token);
-        localStorage.setItem('accountname', json.user.accountname);
-        history.push('/home');
+      if (json.token) {
+        localStorage.setItem('Token', json.token);
+        console.log(json.token);
+        history.push('/');
       }
     } catch (err) {
       setError(true);
@@ -58,9 +57,11 @@ const LoginPages = () => {
               type="password"
               placeholder="비밀번호"
             />
+            {error ? <Error>입력하신 정보가 맞지 않습니다.</Error> : null}
             <button
+              disabled={!(pw && id)}
               type="button"
-              // action="/Home"
+              action="/"
               onClick={submitLogin}
             >
               로그인
@@ -71,6 +72,11 @@ const LoginPages = () => {
     </LoginPage>
   );
 };
+const Error = styled.div`
+  color: red;
+  text-align: center;
+  font-size: 12px;
+`;
 
 const LoginPage = styled.section`
   font-family: 'GmarketSansMedium';
@@ -103,7 +109,7 @@ const LoginPage = styled.section`
       button {
         width: 320px;
         height: 60px;
-        background-color: rgb(243, 174, 177);
+        background-color: #fb838a;
         color: #fff;
         border: none;
         border-radius: 5px;
@@ -112,8 +118,8 @@ const LoginPage = styled.section`
         font-size: 18px;
         line-height: 22px;
         margin-top: 16px;
-        &.active {
-          background-color: #fb838a;
+        &:disabled {
+          background-color: rgb(243, 174, 177);
         }
       }
     }

@@ -1,23 +1,17 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { URL } from '../../../constants';
-import { useForm } from 'react-hook-form';
 const JoinPages = () => {
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useForm();
   const [error, setError] = useState('');
-  // const [id, setId] = useState('');
+  const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [pw2, setPw2] = useState('');
   const [phone_number, setPhone_number] = useState('');
   const [name, setName] = useState('');
 
-  // const handleIdInput = (event) => {
-  //   setId(event.target.value);
-  // };
+  const handleIdInput = (event) => {
+    setId(event.target.value);
+  };
   const handlePwInput = (event) => {
     setPw(event.target.value);
   };
@@ -43,11 +37,12 @@ const JoinPages = () => {
     try {
       const res = await fetch(`${URL}/accounts/signup/`, {
         method: 'POST',
+        redirect: 'follow',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: watch('id'),
+          username: id,
           password: pw,
           password2: pw2,
           phone_number: phone_number,
@@ -57,6 +52,10 @@ const JoinPages = () => {
       });
       const json = await res.json();
       console.log(json);
+      console.log(res);
+      if (res.status !== 201) {
+        alert(json[Object.keys(json)[0]]);
+      }
     } catch (err) {
       setError('id');
       console.log(err);
@@ -73,9 +72,8 @@ const JoinPages = () => {
             <input
               id="id"
               type="email"
-              {...register('id', { required: true })}
               placeholder="이메일 주소를 입력해 주세요."
-              // onChange={handleIdInput}
+              onChange={handleIdInput}
             />
             <Error>*사용중인 아이디 입니다.</Error>
             <input
@@ -109,7 +107,12 @@ const JoinPages = () => {
               type="text"
               placeholder="이름"
             />
-            <button type="button" onClick={checkJoin}>
+            <button
+              disabled={!(id && pw && pw2 && phone_number && name)}
+              type="button"
+              action="/"
+              onClick={checkJoin}
+            >
               가입하기
             </button>
           </form>
@@ -167,7 +170,7 @@ const JoinPage = styled.section`
         font-family: 'GmarketSansMedium';
         width: 320px;
         height: 60px;
-        background-color: rgb(243, 174, 177);
+        background-color:#fb838a ;
         color: #fff;
         border: none;
         border-radius: 5px;
@@ -176,8 +179,8 @@ const JoinPage = styled.section`
         font-size: 18px;
         line-height: 22px;
         margin-top: 16px;
-        &.active {
-          background-color: #fb838a
+        &:disabled {
+          background-color: rgb(243, 174, 177);
         }
       }
     }
