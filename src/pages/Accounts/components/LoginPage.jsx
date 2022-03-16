@@ -32,7 +32,6 @@ const LoginPages = () => {
       const json = await res.json();
       if (json.token) {
         localStorage.setItem('Token', json.token);
-        console.log(json.token);
         history.push('/');
       }
     } catch (err) {

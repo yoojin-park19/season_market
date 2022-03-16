@@ -1,7 +1,24 @@
 import styled from 'styled-components';
+import { URL } from '../../../constants';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const HomeHeader = () => {
+  const history = useHistory();
+  const Token = localStorage.getItem('Token');
+  const Logout = async () => {
+    try {
+      const res = await fetch(`${URL}/accounts/logout/`, {
+        method: 'POST',
+      });
+      const json = await res.json();
+      localStorage.setItem('Token', '');
+      alert(json.detail);
+      history.push('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <HomeHead>
       <div className="left-header">
@@ -23,10 +40,17 @@ const HomeHeader = () => {
           <img src="/assets/icon-shopping-cart.svg" alt="장바구니" />
           <p>장바구니</p>
         </Link>
-        <Link to="/account" className="link-myPage">
-          <img src="/assets/icon-user.svg" alt="마이페이지" />
-          <p>로그인</p>
-        </Link>
+        {Token ? (
+          <button className="btn-logout" onClick={Logout}>
+            <img src="/assets/icon-user.svg" alt="마이페이지" />
+            <p>로그아웃</p>
+          </button>
+        ) : (
+          <Link to="/account" className="link-myPage">
+            <img src="/assets/icon-user.svg" alt="마이페이지" />
+            <p>로그인</p>
+          </Link>
+        )}
       </div>
     </HomeHead>
   );
@@ -91,8 +115,23 @@ const HomeHead = styled.section`
       }
     }
     .link-myPage {
+      width: 60px;
+      height: 50px;
+      img {
+        width: 32px;
+        height: 32px;
+      }
+      p {
+        font-size: 12px;
+        line-height: 14px;
+        color: #767676;
+      }
+    }
+    .btn-logout {
       width: 56px;
       height: 50px;
+      border: none;
+      background-color: transparent;
       img {
         width: 32px;
         height: 32px;
